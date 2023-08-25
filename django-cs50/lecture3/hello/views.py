@@ -10,4 +10,5 @@ def family(request):
     return render(request, "hello/family.htm")
 
 def greeting(request, name):
-    return HttpResponse(f"Hello  {name}")
+    #return HttpResponse(f"Hello  {name}")
+    return render(request, "hello/greet.htm", {"name": name})
