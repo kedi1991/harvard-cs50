@@ -4,3 +4,6 @@ tasks = ["update uganda code", "update zambia code", "plan new stategy for afric
 # Create your views here.
 def listtasks(request):
     return render(request, "tasks/listtasks.html", {"tasks": tasks})
+
+def addtask(request):
+    return render(request, "tasks/addtask.html")
