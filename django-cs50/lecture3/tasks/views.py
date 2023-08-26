@@ -30,4 +30,4 @@ def addtask(request):
         else:
             return render(request, "tasks/addtask.html", {"form": form})
 
-    return render(request, "tasks/addtask.html", {"form": AddTaskForm()})
+    return render(request, "tasks/addtaskfli.html", {"form": AddTaskForm()})
