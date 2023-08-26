@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django import forms
 
-tasks = ["update uganda code", "update zambia code", "plan new stategy for africa"]
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 
 #my form
 class AddTaskForm(forms.Form):
@@ -10,16 +12,22 @@ class AddTaskForm(forms.Form):
 
 # Create your views here.
 def listtasks(request):
-    return render(request, "tasks/listtasks.html", {"tasks": tasks})
+    if "tasks" not in request.session:
+        request.session["tasks"] = []
+        
+    return render(request, "tasks/listtasks.html", {"tasks": request.session["tasks"]})
 
 def addtask(request):
+   
     #request.post is the submitted data
     if (request.method == "POST"):
         form = AddTaskForm(request.POST)
         if (form.is_valid()):
             task = form.cleaned_data["task"]
-            tasks.append(task)
+            request.session["tasks"] += [task]
+            #redirect to the list of tasks
+            return HttpResponseRedirect(reverse("tasks:tasks"))
         else:
-            form = form
+            return render(request, "tasks/addtask.html", {"form": form})
 
     return render(request, "tasks/addtask.html", {"form": AddTaskForm()})
