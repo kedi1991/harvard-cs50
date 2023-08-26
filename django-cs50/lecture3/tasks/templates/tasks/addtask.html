@@ -3,7 +3,9 @@
 
 {% block main%}
     <h3>ADD TASKS</h3>
-    <form>
+    <form action="{% url 'tasks:addtask' %}" method="post">
+    {% csrf_token %}
+
         <input type="text" name="taskname">
         <input type="submit" name="submit">
     </form>
