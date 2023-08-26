@@ -13,4 +13,13 @@ def listtasks(request):
     return render(request, "tasks/listtasks.html", {"tasks": tasks})
 
 def addtask(request):
+    #request.post is the submitted data
+    if (request.method == "POST"):
+        form = AddTaskForm(request.POST)
+        if (form.is_valid()):
+            task = form.cleaned_data["task"]
+            tasks.append(task)
+        else:
+            form = form
+
     return render(request, "tasks/addtask.html", {"form": AddTaskForm()})
